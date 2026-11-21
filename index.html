@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#5145cd">
+  <title>Clube de Vantagens — demonstração</title>
+  <style>
+    :root{--brand:#5145cd;--brand2:#7b55d9;--ink:#24243a;--muted:#6d6d80;--line:#e9e8f2;--bg:#f5f5fa;--green:#16845b;--shadow:0 8px 28px rgba(40,35,90,.08)}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.45}
+    button,input,select,textarea{font:inherit}button{cursor:pointer}.app{width:min(100%,480px);min-height:100vh;margin:auto;background:#fff;box-shadow:var(--shadow)}
+    .screen{display:none;padding:20px 20px 36px}.screen.active{display:block;animation:appear .2s ease}@keyframes appear{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+    .hero{padding:30px 22px 24px;text-align:center;color:#fff;background:linear-gradient(140deg,var(--brand),var(--brand2));border-radius:0 0 24px 24px;margin:-20px -20px 22px}
+    .hero .logo{font-size:52px;line-height:1;margin-bottom:12px}.hero h1,.top h1{font-size:24px;margin:0 0 7px}.hero p,.top p{margin:0;opacity:.9;font-size:14px}.top{background:linear-gradient(140deg,var(--brand),var(--brand2));color:#fff;padding:17px 18px 20px;border-radius:0 0 20px 20px;margin:-20px -20px 20px}.back{border:0;color:#fff;background:#ffffff26;border-radius:20px;padding:8px 13px;margin-bottom:13px;font-size:14px}
+    .notice{font-size:12px;color:#5b5874;background:#f0efff;border:1px solid #e3e0ff;border-radius:12px;padding:10px 12px;margin:16px 0}.welcome-copy{color:var(--muted);margin:0 auto 23px;max-width:330px}
+    .choice,.primary,.secondary,.danger{width:100%;border:0;border-radius:13px;padding:14px 16px;font-weight:700}.choice{margin:7px 0;color:#fff;background:linear-gradient(135deg,var(--brand),var(--brand2));font-size:16px}.choice.business{background:linear-gradient(135deg,#ee7b8c,#dc4d73)}.choice.admin{background:#fff;color:var(--ink);border:1px solid var(--line)}.primary{color:#fff;background:linear-gradient(135deg,var(--brand),var(--brand2))}.secondary{background:#f0efff;color:var(--brand)}.danger{background:#fff0f1;color:#a62c3d}.primary:disabled{opacity:.55;cursor:not-allowed}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #a89efa;outline-offset:2px}
+    .section-title{font-size:17px;margin:22px 0 12px}.store-toggle{margin:14px 0 8px}.store-count-button{margin:7px 0;padding:12px;text-align:left}.card{border:1px solid var(--line);border-radius:15px;padding:14px;margin:10px 0;background:#fff;box-shadow:0 2px 8px #24243a08}.card-head{display:flex;align-items:center;gap:12px}.card-icon{width:48px;height:48px;border-radius:13px;background:#f1f0fa;display:grid;place-items:center;font-size:24px;flex:none}.card-title{font-weight:750}.sub{font-size:13px;color:var(--muted)}.tag{margin-left:auto;white-space:nowrap;border-radius:20px;padding:5px 9px;font-size:12px;color:#126443;background:#e7f7ef;font-weight:700}.card-desc{margin:10px 0 0;color:#55556a;font-size:14px}.roulette{text-align:center;padding:14px 0 8px}.wheel-wrap{position:relative;width:min(76vw,290px);aspect-ratio:1;margin:4px auto 22px}.wheel{width:100%;height:100%;border-radius:50%;border:9px solid white;box-shadow:0 8px 25px #24243a26;background:conic-gradient(#5145cd 0 60deg,#ed6784 60deg 120deg,#f3b743 120deg 180deg,#32a9ba 180deg 240deg,#45b77c 240deg 300deg,#8760d4 300deg 360deg);transition:transform 4s cubic-bezier(.13,.65,.12,1)}.wheel-pointer{position:absolute;top:-7px;left:50%;transform:translateX(-50%);border-left:15px solid transparent;border-right:15px solid transparent;border-top:28px solid #25233b;z-index:3;filter:drop-shadow(0 2px 2px #0003)}.wheel-center{position:absolute;inset:50% auto auto 50%;transform:translate(-50%,-50%);width:65px;height:65px;border-radius:50%;background:#fff;display:grid;place-items:center;font-size:25px;box-shadow:0 2px 12px #2223}.hint{font-size:13px;color:var(--muted);margin:0 0 14px}.result{border-radius:16px;padding:19px;text-align:center;color:#fff;background:linear-gradient(135deg,#159a71,#087956);margin:16px 0}.result h2{font-size:19px;margin:0 0 7px}.coupon-qr{display:block;width:180px;height:180px;max-width:100%;margin:12px auto 8px;background:#fff;padding:8px;border-radius:12px}.discount{font-size:34px;font-weight:850}.code{font-family:ui-monospace,monospace;font-size:20px;font-weight:800;letter-spacing:2px;border:1px dashed #ffffffa8;border-radius:9px;padding:9px;margin:12px 0}.result small{display:block;opacity:.92}.coupon-item{display:flex;justify-content:space-between;align-items:center;gap:8px;background:#f8f8fc;border:1px solid var(--line);border-radius:11px;padding:12px;margin:8px 0}.coupon-code{font-family:ui-monospace,monospace;color:var(--brand);font-weight:800}.coupon-item small{color:var(--muted)}
+    .form-group{margin:13px 0}.qr-reader{width:100%;max-width:340px;margin:8px auto;border-radius:14px;overflow:hidden;background:#161622}.qr-reader video{width:100%;display:block}.validation-state{padding:14px;border-radius:12px;margin:12px 0;background:#f0efff;color:var(--ink)}.validation-state.valid{background:#e7f7ef;color:#126443}.validation-state.invalid{background:#fff0f1;color:#a62c3d}.form-group label{display:block;font-size:13px;font-weight:700;margin-bottom:6px}.form-group input,.form-group select,.form-group textarea{width:100%;border:1px solid #d9d8e5;border-radius:10px;padding:12px;background:#fff;color:var(--ink)}.form-group textarea{resize:vertical}.form-group input::placeholder,.form-group textarea::placeholder{color:#9897a8}.success{display:none;border-radius:10px;padding:12px;background:#e7f7ef;color:#126443;margin-top:12px}.success.show{display:block}.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{border:1px solid var(--line);border-radius:13px;text-align:center;padding:14px 8px}.stat strong{display:block;font-size:23px;color:var(--brand)}.stat span{font-size:12px;color:var(--muted)}.admin-actions{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}.admin-actions button{padding:9px 10px;font-size:13px;flex:1 1 130px;width:auto}.empty{text-align:center;color:var(--muted);padding:18px 10px;font-size:14px}.foot{font-size:11px;color:#858497;text-align:center;margin:22px 0 0}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+  </style>
+</head>
+<body>
+<main class="app">
+  <section class="screen active" id="welcome" aria-labelledby="welcome-title">
+    <div class="hero"><div class="logo" aria-hidden="true">🎁</div><h1 id="welcome-title">Clube de Vantagens</h1><p>Descubra ofertas de comércios da sua região</p></div>
+    <p class="welcome-copy">Encontre ofertas locais e participe de uma demonstração de clube de descontos.</p>
+    <button class="choice" onclick="openClientArea()">🛍️ Sou Cliente / Entrar</button>
+    <button class="choice business" onclick="showScreen('business')">🏪 Cadastrar meu comércio</button>
+    <button class="choice admin" onclick="showScreen('validator')">📷 Validar cupom</button>
+    <button class="choice admin" onclick="showScreen('admin')">⚙️ Painel demonstrativo</button>
+    <div class="notice"><strong>Protótipo demonstrativo:</strong> dados ficam apenas neste navegador. Não há login, servidor ou validação real de cupons.</div>
+  </section>
+
+  <section class="screen" id="clientLogin" aria-labelledby="client-login-title">
+    <header class="top"><button class="back" onclick="showScreen('welcome')">← Início</button><h1 id="client-login-title">Acesso do cliente</h1><p>Informe seu nome e número para usar a demonstração</p></header>
+    <form id="clientLoginForm">
+      <div class="form-group"><label for="clientName">Seu nome *</label><input id="clientName" name="name" autocomplete="name" required maxlength="70" placeholder="Como podemos te chamar?"></div>
+      <div class="form-group"><label for="clientPhone">Número de celular *</label><input id="clientPhone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required maxlength="25" placeholder="(51) 99999-9999"></div>
+      <button class="primary" type="submit">Continuar</button>
+    </form>
+    <div class="notice"><strong>Protótipo:</strong> o número só identifica o cliente neste navegador. Ainda não enviamos SMS nem confirmamos a titularidade do telefone.</div>
+  </section>
+
+  <section class="screen" id="client" aria-labelledby="client-title">
+    <header class="top"><button class="back" onclick="showScreen('welcome')">← Início</button><h1 id="client-title">Ofertas para você</h1><p id="clientGreeting">Entre para continuar</p><button class="back" style="margin:12px 0 0" type="button" onclick="changeClient()">Trocar cliente</button></header>
+    <div class="roulette"><div class="wheel-wrap"><div class="wheel" id="wheel" aria-hidden="true"></div><div class="wheel-pointer" aria-hidden="true"></div><div class="wheel-center" aria-hidden="true">🎯</div></div><p class="hint" id="spinHint">Você pode sortear um cupom por comércio por dia neste navegador.</p><button class="primary" id="spinBtn" onclick="spinWheel()">🎁 GIRAR ROLETA</button></div>
+    <div id="couponArea" aria-live="polite"></div>
+    <button class="secondary store-toggle" id="storeToggle" type="button" aria-expanded="false" aria-controls="storeList" onclick="toggleStores()">Ver comércios parceiros</button>
+    <div id="storeList" hidden></div>
+  </section>
+
+  <section class="screen" id="validator" aria-labelledby="validator-title">
+    <header class="top"><button class="back" onclick="stopScanner();showScreen('welcome')">← Início</button><h1 id="validator-title">Validar cupom</h1><p>Escaneie o QR ou digite o código impresso</p></header>
+    <button class="primary" id="startScanBtn" type="button" onclick="startScanner()">📷 Abrir leitor de QR</button>
+    <div id="qrReader" class="qr-reader" hidden><video id="qrVideo" playsinline muted></video></div>
+    <p class="sub" id="scannerMessage" aria-live="polite">Aponte a câmera para o QR exibido no cupom. Se solicitado, permita o uso da câmera.</p>
+    <div class="form-group"><label for="couponCodeInput">Código do cupom</label><input id="couponCodeInput" type="text" autocomplete="off" placeholder="Ex.: CLUBEAB12"></div>
+    <button class="secondary" type="button" onclick="checkCoupon()">Consultar cupom</button>
+    <div id="validationResult" aria-live="polite"></div>
+    <p class="foot">Demonstração local: a confirmação só fica salva neste navegador. Ainda não valida cupons entre aparelhos.</p>
+  </section>
+
+  <section class="screen" id="business" aria-labelledby="business-title">
+    <header class="top"><button class="back" onclick="showScreen('welcome')">← Início</button><h1 id="business-title">Cadastre seu comércio</h1><p>O cadastro ficará pendente de aprovação</p></header>
+    <form id="businessForm">
+      <div class="form-group"><label for="bizName">Nome do comércio *</label><input id="bizName" name="name" required maxlength="70" placeholder="Ex.: Padaria Pão Quente"></div>
+      <div class="form-group"><label for="bizOwner">Responsável *</label><input id="bizOwner" name="owner" required maxlength="70" placeholder="Seu nome"></div>
+      <div class="form-group"><label for="bizCategory">Categoria *</label><select id="bizCategory" name="category" required><option value="">Selecione</option><option>Alimentação</option><option>Beleza e estética</option><option>Saúde</option><option>Serviços</option><option>Varejo</option><option>Outro</option></select></div>
+      <div class="form-group"><label for="bizAddress">Endereço *</label><input id="bizAddress" name="address" required maxlength="120" placeholder="Rua, número, bairro e cidade"></div>
+      <div class="form-group"><label for="bizHours">Horário de atendimento *</label><input id="bizHours" name="hours" required maxlength="100" placeholder="Ex.: Seg a sáb, das 9h às 18h"></div>
+      <div class="form-group"><label for="bizPhone">WhatsApp *</label><input id="bizPhone" name="phone" type="tel" required maxlength="25" placeholder="(51) 99999-9999"></div>
+      <div class="form-group"><label for="bizDiscount">Percentual de desconto *</label><input id="bizDiscount" name="discount" type="number" required min="1" max="100" step="1" placeholder="Ex.: 15"></div>
+      <div class="form-group"><label for="bizValidity">Validade do cupom (dias) *</label><input id="bizValidity" name="validityDays" type="number" required min="1" max="30" step="1" value="1"></div>
+      <div class="form-group"><label for="bizDescription">Observação da oferta *</label><textarea id="bizDescription" name="description" required rows="3" maxlength="220" placeholder="Informe as condições da oferta"></textarea></div>
+      <button class="primary" type="submit">Enviar para aprovação</button><div class="success" id="businessSuccess" role="status"></div>
+    </form>
+    <p class="foot">O envio é armazenado apenas neste navegador; ainda não chega a um administrador real.</p>
+  </section>
+
+  <section class="screen" id="admin" aria-labelledby="admin-title">
+    <header class="top"><button class="back" onclick="showScreen('welcome')">← Início</button><h1 id="admin-title">Painel demonstrativo</h1><p>Gerencie os cadastros locais de exemplo</p></header>
+    <div class="notice"><strong>Atenção:</strong> esta tela não tem autenticação. Não use como painel administrativo real nem publique com dados verdadeiros.</div>
+    <div class="stats" id="stats"></div>
+    <h2 class="section-title">Cadastros pendentes</h2><div id="pendingList"></div>
+    <h2 class="section-title">Ofertas aprovadas</h2><div id="approvedList"></div>
+    <h2 class="section-title">Cupons gerados</h2>
+    <div class="form-group"><label for="couponDateFilter">Buscar cupons por data</label><input id="couponDateFilter" type="date" aria-label="Escolha uma data para buscar cupons"></div>
+    <button class="secondary" type="button" id="clearCouponDate">Mostrar todas as datas</button>
+    <div id="couponHistory"></div>
+  </section>
+</main>
+<script>
+(() => {
+  const KEY='clubeVantagensDemo_v2';
+  const defaults=[
+    {id:'seed-1',name:'Padaria Pão Quente',owner:'Comércio parceiro',category:'Alimentação',address:'Rua das Flores, 123',hours:'Seg a sáb, 7h às 19h (exemplo)',phone:'',discount:20,validityDays:1,description:'Consulte as condições no estabelecimento.',approved:true},
+    {id:'seed-2',name:'Barbearia Estilo',owner:'Comércio parceiro',category:'Beleza e estética',address:'Av. Central, 456',hours:'Seg a sáb, 9h às 20h (exemplo)',phone:'',discount:15,validityDays:1,description:'Oferta sujeita à disponibilidade.',approved:true},
+    {id:'seed-3',name:'Pizzaria do Bairro',owner:'Comércio parceiro',category:'Alimentação',address:'Endereço demonstrativo',hours:'Horário demonstrativo',phone:'',discount:10,validityDays:1,description:'Oferta demonstrativa.',approved:true}
+  ];
+  let state=loadState(), rotation=0, spinning=false;
+  const RESET_TEST_COUPONS_KEY='clubeVantagensDemo_testCouponsReset_v1';
+  try{if(!localStorage.getItem(RESET_TEST_COUPONS_KEY)){state.coupons=[];localStorage.setItem(RESET_TEST_COUPONS_KEY,'1');save();}}catch(e){}
+  function loadState(){try{const saved=JSON.parse(localStorage.getItem(KEY));if(saved&&Array.isArray(saved.stores)&&Array.isArray(saved.coupons)){saved.stores=saved.stores.map(s=>{const legacy=String(s.offer||'').match(/(\d{1,3})\s*%/);return {...s,discount:Number(s.discount)||Number(legacy?.[1])||0,hours:s.hours||'Horário não informado',validityDays:Number(s.validityDays)||1};});return saved;}}catch(e){}return {stores:defaults,coupons:[],clientSession:null};}
+  if(!state.clientSession)state.clientSession=null;
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){console.warn('Não foi possível salvar os dados neste navegador.');}}
+  function safe(s=''){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+  window.showScreen=id=>{document.querySelectorAll('.screen').forEach(el=>el.classList.toggle('active',el.id===id));window.scrollTo({top:0,behavior:'smooth'});if(id==='client')renderClient();if(id==='admin')renderAdmin();};
+  const approved=()=>state.stores.filter(s=>s.approved);
+  function todayKey(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
+  function phoneKey(phone){return String(phone||'').replace(/\D/g,'');}
+  window.openClientArea=()=>{if(state.clientSession?.phoneKey){showScreen('client');return;}showScreen('clientLogin');};
+  window.changeClient=()=>{state.clientSession=null;save();document.getElementById('clientLoginForm').reset();showScreen('clientLogin');};
+  document.getElementById('clientLoginForm').addEventListener('submit',event=>{event.preventDefault();const form=event.currentTarget;const data=Object.fromEntries(new FormData(form).entries());const digits=phoneKey(data.phone);if(!data.name.trim()||digits.length<10){alert('Informe seu nome e um número de celular válido.');return;}state.clientSession={name:data.name.trim(),phoneKey:digits,phone:data.phone.trim()};save();document.getElementById('clientGreeting').textContent=`Olá, ${state.clientSession.name}! Gire para receber uma oferta.`;form.reset();showScreen('client');});
+  function eligibleToday(){if(!state.clientSession?.phoneKey)return [];const today=todayKey(),client=state.clientSession.phoneKey;const used=new Set(state.coupons.filter(c=>c.dayKey===today&&c.customerPhone===client).map(c=>c.storeId||c.store));return approved().filter(s=>!used.has(s.id)&&!used.has(s.name));}
+  function renderClient(){
+    if(!state.clientSession?.phoneKey){showScreen('clientLogin');return;}
+    document.getElementById('clientGreeting').textContent=`Olá, ${state.clientSession.name}! Gire para receber uma oferta.`;
+    const stores=approved(), eligible=eligibleToday();
+    document.getElementById('storeList').innerHTML=stores.length?stores.map(s=>`<article class="card"><div class="card-title">${safe(s.name)}</div><div class="sub" style="margin-top:5px">📍 ${safe(s.address||'Endereço não informado')}</div><div class="sub">🕒 ${safe(s.hours||'Horário não informado')}</div></article>`).join(''):'<p class="empty">Ainda não há comércios aprovados.</p>';
+    document.getElementById('spinBtn').disabled=spinning||!eligible.length;
+    document.getElementById('spinHint').textContent=eligible.length?`Você ainda pode sortear em ${eligible.length} comércio(s) hoje. Um cupom por comércio por dia neste navegador.`:'Você já sorteou um cupom de cada comércio disponível hoje. Volte amanhã!';
+  }
+  window.toggleStores=()=>{const list=document.getElementById('storeList'),button=document.getElementById('storeToggle');const opening=list.hidden;list.hidden=!opening;button.setAttribute('aria-expanded',String(opening));button.textContent=opening?'Ocultar comércios':'Ver comércios parceiros';};
+  window.spinWheel=()=>{
+    const stores=eligibleToday();if(spinning||!stores.length)return;
+    spinning=true;document.getElementById('spinBtn').disabled=true;document.getElementById('couponArea').innerHTML='';
+    const store=stores[Math.floor(Math.random()*stores.length)];const wheel=document.getElementById('wheel');
+    rotation+=360*(5+Math.floor(Math.random()*4))+Math.random()*360;wheel.style.transform=`rotate(${rotation}deg)`;
+    window.setTimeout(()=>{
+      const code='CLUBE'+Math.random().toString(36).slice(2,6).toUpperCase();
+      const now=new Date();const date=now.toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'});
+      const expiresAt=new Date(now.getTime()+Number(store.validityDays||1)*86400000);
+      const coupon={code,storeId:store.id,store:store.name,discount:store.discount,description:store.description||'',customerPhone:state.clientSession.phoneKey,customerName:state.clientSession.name,date,dayKey:todayKey(),createdAt:now.toISOString(),expiresAt:expiresAt.toISOString(),validityDays:Number(store.validityDays||1),usedAt:null};state.coupons.push(coupon);save();
+      renderAdmin();
+      const qrUrl=`https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(code)}`;
+      document.getElementById('couponArea').innerHTML=`<div class="result"><h2>🎉 Você ganhou!</h2><div class="discount">${safe(store.discount)}% OFF</div><p>Em <strong>${safe(store.name)}</strong></p>${store.description?`<p>${safe(store.description)}</p>`:''}<img class="coupon-qr" src="${qrUrl}" alt="QR Code do cupom ${safe(code)}"><p>O comércio pode escanear este QR para ler o código.</p><div class="code">${safe(code)}</div><small>Válido até ${safe(expiresAt.toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'}))}.</small><small>Cupom demonstrativo. O QR contém apenas o código e ainda não verifica nem registra o resgate.</small></div>`;
+      spinning=false;renderClient();
+    },4000);
+  };
+  let scanStream=null,scanTimer=null,scanDetector=null;
+  window.startScanner=async()=>{
+    const message=document.getElementById('scannerMessage'),reader=document.getElementById('qrReader'),video=document.getElementById('qrVideo');
+    if(!('BarcodeDetector' in window)){message.textContent='Este navegador não oferece leitura de QR direta. Digite o código impresso no cupom.';return;}
+    try{
+      scanDetector=new BarcodeDetector({formats:['qr_code']});
+      scanStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'}},audio:false});
+      video.srcObject=scanStream;reader.hidden=false;await video.play();message.textContent='Câmera ativa. Aponte para o QR do cupom.';
+      const scan=async()=>{if(!scanStream)return;try{const codes=await scanDetector.detect(video);if(codes.length){document.getElementById('couponCodeInput').value=codes[0].rawValue;stopScanner();message.textContent='QR lido. Toque em “Consultar cupom”.';return;}}catch(e){}scanTimer=setTimeout(scan,350);};scan();
+    }catch(e){message.textContent='Não foi possível abrir a câmera. Permita o acesso ou digite o código do cupom.';stopScanner();}
+  };
+  window.stopScanner=()=>{if(scanTimer)clearTimeout(scanTimer);scanTimer=null;if(scanStream){scanStream.getTracks().forEach(track=>track.stop());scanStream=null;}const video=document.getElementById('qrVideo');if(video)video.srcObject=null;const reader=document.getElementById('qrReader');if(reader)reader.hidden=true;};
+  window.checkCoupon=()=>{
+    const code=document.getElementById('couponCodeInput').value.trim().toUpperCase();const result=document.getElementById('validationResult');
+    if(!code){result.innerHTML='<div class="validation-state invalid">Digite ou escaneie o código do cupom.</div>';return;}
+    const coupon=state.coupons.find(c=>String(c.code).toUpperCase()===code);
+    if(!coupon){result.innerHTML='<div class="validation-state invalid"><strong>Cupom não encontrado.</strong><br>Este código não está neste navegador.</div>';return;}
+    if(coupon.usedAt){result.innerHTML=`<div class="validation-state invalid"><strong>Este cupom já foi utilizado.</strong><br>${safe(coupon.store)} · ${safe(coupon.usedAt)}</div>`;return;}
+    if(coupon.expiresAt&&Date.now()>new Date(coupon.expiresAt).getTime()){result.innerHTML=`<div class="validation-state invalid"><strong>Este cupom está vencido.</strong><br>${safe(coupon.store)} · Venceu em ${safe(new Date(coupon.expiresAt).toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'}))}</div>`;return;}
+    result.innerHTML=`<div class="validation-state valid"><strong>Cupom válido nesta demonstração</strong><br>Comércio: ${safe(coupon.store)}<br>Desconto: ${safe(coupon.discount)}%${coupon.description?`<br>Observação: ${safe(coupon.description)}`:''}${coupon.expiresAt?`<br>Válido até: ${safe(new Date(coupon.expiresAt).toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'}))}`:''}<br>Válido para conferência pelo atendente.</div><button class="primary" type="button" onclick="redeemCoupon('${safe(coupon.code)}')">Utilizar cupom</button>`;
+  };
+  window.redeemCoupon=code=>{
+    const coupon=state.coupons.find(c=>String(c.code).toUpperCase()===String(code).toUpperCase());const result=document.getElementById('validationResult');
+    if(!coupon){result.innerHTML='<div class="validation-state invalid">Cupom não encontrado.</div>';return;}
+    if(coupon.usedAt){window.checkCoupon();return;}
+    if(coupon.expiresAt&&Date.now()>new Date(coupon.expiresAt).getTime()){window.checkCoupon();return;}
+    coupon.usedAt=new Date().toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'});save();
+    result.innerHTML=`<div class="validation-state invalid"><strong>Resgate confirmado.</strong><br>${safe(coupon.store)} · ${safe(coupon.usedAt)}<br>Uma nova consulta mostrará que já foi utilizado.</div>`;
+    renderAdmin();
+  };
+  document.getElementById('businessForm').addEventListener('submit',event=>{
+    event.preventDefault();
+    const form=event.currentTarget;
+    const blank=[...form.querySelectorAll('[required]')].some(field=>!String(field.value).trim());
+    if(blank){alert('Preencha todos os campos antes de enviar o cadastro.');return;}
+    const data=Object.fromEntries(new FormData(form).entries());
+    for(const key of Object.keys(data)){if(typeof data[key]==='string')data[key]=data[key].trim();}
+    data.discount=Number(data.discount);data.validityDays=Number(data.validityDays);
+    const store={...data,id:'store-'+Date.now(),approved:false};state.stores.push(store);save();form.reset();
+    const msg=document.getElementById('businessSuccess');msg.textContent=`Cadastro de “${store.name}” salvo como pendente neste navegador.`;msg.classList.add('show');
+  });
+  function renderAdmin(){
+    const pending=state.stores.filter(s=>!s.approved), active=approved();
+    document.getElementById('stats').innerHTML=`<div class="stat"><strong>${active.length}</strong><span>Comércios aprovados</span></div><div class="stat"><strong>${pending.length}</strong><span>Pendentes</span></div><div class="stat"><strong>${state.coupons.length}</strong><span>Cupons gerados</span></div><div class="stat"><strong>${new Set(state.coupons.map(c=>c.store)).size}</strong><span>Comércios sorteados</span></div>`;
+    document.getElementById('pendingList').innerHTML=pending.length?pending.map(s=>`<article class="card"><div class="card-title">${safe(s.name)}</div><div class="sub">${safe(s.category)} · ${safe(s.address)} · ${safe(s.phone)}</div><p class="card-desc"><strong>${safe(s.discount)}% de desconto</strong>${s.description?` — ${safe(s.description)}`:''}<br>Horário: ${safe(s.hours)}<br>Responsável: ${safe(s.owner)}</p><div class="admin-actions"><button class="primary" onclick="approveStore('${safe(s.id)}')">Aprovar</button><button class="secondary" onclick="toggleStoreEdit('${safe(s.id)}')">Editar cadastro</button><button class="danger" onclick="removeStore('${safe(s.id)}')">Excluir</button></div>${renderStoreEditForm(s)}</article>`).join(''):'<p class="empty">Nenhum cadastro pendente.</p>';
+    document.getElementById('approvedList').innerHTML=active.length?active.map(s=>`<article class="card"><div class="card-title">${safe(s.name)}</div><div class="sub">${safe(s.discount)}% de desconto · ${safe(s.hours)}</div><div class="admin-actions"><button class="secondary" onclick="toggleStoreEdit('${safe(s.id)}')">Editar cadastro e desconto</button>${s.id.startsWith('seed-')?'<span class="sub" style="align-self:center">Exemplo</span>':`<button class="danger" onclick="removeStore('${safe(s.id)}')">Remover</button>`}</div>${renderStoreEditForm(s)}</article>`).join(''):'<p class="empty">Nenhuma oferta aprovada.</p>';
+    renderCouponHistory();
+  }
+  function renderStoreEditForm(s){return `<form id="edit-${safe(s.id)}" hidden onsubmit="saveStoreEdit(event,'${safe(s.id)}')"><h4 class="section-title">Editar cadastro</h4><div class="form-group"><label>Nome do comércio</label><input name="name" required maxlength="70" value="${safe(s.name)}"></div><div class="form-group"><label>Responsável</label><input name="owner" required maxlength="70" value="${safe(s.owner||'')}"></div><div class="form-group"><label>Categoria</label><input name="category" required maxlength="60" value="${safe(s.category||'')}"></div><div class="form-group"><label>Endereço</label><input name="address" required maxlength="120" value="${safe(s.address||'')}"></div><div class="form-group"><label>Horário de atendimento</label><input name="hours" required maxlength="100" value="${safe(s.hours||'')}"></div><div class="form-group"><label>WhatsApp</label><input name="phone" type="tel" maxlength="25" value="${safe(s.phone||'')}"></div><div class="form-group"><label>Percentual de desconto</label><input name="discount" type="number" required min="1" max="100" step="1" value="${safe(s.discount)}"></div><div class="form-group"><label>Validade do cupom (dias)</label><input name="validityDays" type="number" required min="1" max="30" step="1" value="${safe(s.validityDays||1)}"></div><div class="form-group"><label>Observação da oferta</label><textarea name="description" rows="3" maxlength="220">${safe(s.description||'')}</textarea></div><div class="admin-actions"><button class="primary" type="submit">Salvar alterações</button><button class="secondary" type="button" onclick="toggleStoreEdit('${safe(s.id)}')">Cancelar</button></div></form>`;}
+  window.toggleStoreEdit=id=>{const form=document.getElementById(`edit-${id}`);if(form)form.hidden=!form.hidden;};
+  window.saveStoreEdit=(event,id)=>{event.preventDefault();const store=state.stores.find(s=>s.id===id);if(!store)return;const data=Object.fromEntries(new FormData(event.currentTarget).entries());store.name=data.name.trim();store.owner=data.owner.trim();store.category=data.category.trim();store.address=data.address.trim();store.hours=data.hours.trim();store.phone=data.phone.trim();store.discount=Number(data.discount);store.validityDays=Number(data.validityDays);store.description=data.description.trim();save();renderAdmin();renderClient();};
+  function couponDayKey(c){if(/^\d{4}-\d{2}-\d{2}$/.test(c.dayKey||''))return c.dayKey;if(c.createdAt){const d=new Date(c.createdAt);if(!Number.isNaN(d.getTime()))return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}const m=String(c.date||'').match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);return m?`${m[3]}-${m[2].padStart(2,'0')}-${m[1].padStart(2,'0')}`:'sem-data';}
+  window.showStoreDayCount=(day,encodedName)=>{const name=decodeURIComponent(encodedName);const coupons=state.coupons.filter(c=>couponDayKey(c)===day&&(c.store||'Comércio não identificado')===name);document.getElementById('storeDayCount').innerHTML=`<div class="card"><strong>${safe(name)}</strong><p class="card-desc">Gerou <strong>${coupons.length}</strong> ${coupons.length===1?'cupom':'cupons'} nessa data.</p>${coupons.map(c=>`<div class="coupon-item"><span>${safe(c.discount)}% · ${safe(c.code)}</span><small>${safe(c.date||'')}</small></div>`).join('')}</div>`;};
+  function renderCouponHistory(){
+    const selected=document.getElementById('couponDateFilter').value;
+    const filtered=selected?state.coupons.filter(c=>couponDayKey(c)===selected):state.coupons;
+    const grouped={};filtered.forEach(c=>{const key=couponDayKey(c);(grouped[key]??=[]).push(c);});
+    const days=Object.keys(grouped).sort((a,b)=>b.localeCompare(a));
+    if(selected){const d=new Date(`${selected}T12:00:00`);const label=d.toLocaleDateString('pt-BR',{day:'numeric',month:'long',year:'numeric'});if(!days.length){document.getElementById('couponHistory').innerHTML=`<p class="empty">Nenhum cupom encontrado em ${safe(label)}.</p>`;return;}const counts={};grouped[selected].forEach(c=>{const name=c.store||'Comércio não identificado';counts[name]=(counts[name]||0)+1;});const storeButtons=Object.keys(counts).sort((a,b)=>a.localeCompare(b,'pt-BR')).map(name=>`<button class="secondary store-count-button" type="button" onclick="showStoreDayCount('${selected}','${encodeURIComponent(name)}')">${safe(name)}</button>`).join('');document.getElementById('couponHistory').innerHTML=`<h3 class="section-title">Cupons de ${safe(label)}</h3><p class="sub">Toque em um comércio para ver quantos cupons gerou nesse dia.</p>${storeButtons}<div id="storeDayCount" aria-live="polite"></div>`;return;}
+    const months={};days.forEach(day=>{const d=/^\d{4}-\d{2}-\d{2}$/.test(day)?new Date(`${day}T12:00:00`):null;const monthKey=d?day.slice(0,7):'sem-data';(months[monthKey]??={date:d,days:[]}).days.push(day);});
+    const monthKeys=Object.keys(months).sort((a,b)=>b.localeCompare(a));
+    document.getElementById('couponHistory').innerHTML=monthKeys.length?monthKeys.map(monthKey=>{const group=months[monthKey];const monthName=group.date?group.date.toLocaleDateString('pt-BR',{month:'long',year:'numeric'}):'Histórico antigo';return `<h3 class="section-title">${safe(monthName)}</h3>${group.days.map(day=>{const d=/^\d{4}-\d{2}-\d{2}$/.test(day)?new Date(`${day}T12:00:00`):null;const dayName=d?d.toLocaleDateString('pt-BR',{weekday:'long',day:'numeric'}):'Data anterior não identificada';return `<h4 style="margin:14px 0 6px;text-transform:capitalize">${safe(dayName)}</h4>${grouped[day].map(c=>`<div class="coupon-item"><div><strong>${safe(c.store)}</strong><br><small>${safe(c.discount)}% · Cupom ${safe(c.code)}</small></div><small>${safe(c.date||'')}</small></div>`).join('')}`;}).join('')}`;}).join(''):'<p class="empty">Nenhum cupom gerado ainda.</p>';
+  }
+  document.getElementById('couponDateFilter').addEventListener('change',renderCouponHistory);
+  document.getElementById('clearCouponDate').addEventListener('click',()=>{document.getElementById('couponDateFilter').value='';renderCouponHistory();});
+  window.approveStore=id=>{const item=state.stores.find(s=>s.id===id);if(item){item.approved=true;save();renderAdmin();}};
+  window.removeStore=id=>{state.stores=state.stores.filter(s=>s.id!==id);save();renderAdmin();};
+  renderClient();
+})();
+</script>
+</body>
+</html>
