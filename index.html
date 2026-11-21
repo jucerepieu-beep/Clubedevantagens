@@ -62,7 +62,7 @@
 
   <section class="screen" id="business" aria-labelledby="business-title">
     <header class="top"><button class="back" onclick="showScreen('welcome')">← Início</button><h1 id="business-title">Cadastre seu comércio</h1><p>O cadastro ficará pendente de aprovação</p></header>
-    <form id="businessForm">
+    <form id="businessForm" novalidate>
       <div class="form-group"><label for="bizName">Nome do comércio *</label><input id="bizName" name="name" required maxlength="70" placeholder="Ex.: Padaria Pão Quente"></div>
       <div class="form-group"><label for="bizOwner">Responsável *</label><input id="bizOwner" name="owner" required maxlength="70" placeholder="Seu nome"></div>
       <div class="form-group"><label for="bizCategory">Categoria *</label><select id="bizCategory" name="category" required><option value="">Selecione</option><option>Alimentação</option><option>Beleza e estética</option><option>Saúde</option><option>Serviços</option><option>Varejo</option><option>Outro</option></select></div>
@@ -171,7 +171,7 @@
     event.preventDefault();
     const form=event.currentTarget;
     const blank=[...form.querySelectorAll('[required]')].some(field=>!String(field.value).trim());
-    if(blank){alert('Preencha todos os campos antes de enviar o cadastro.');return;}
+    if(blank){alert('Preencha todos os campos');return;}
     const data=Object.fromEntries(new FormData(form).entries());
     for(const key of Object.keys(data)){if(typeof data[key]==='string')data[key]=data[key].trim();}
     data.discount=Number(data.discount);data.validityDays=Number(data.validityDays);
